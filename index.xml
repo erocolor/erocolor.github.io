@@ -3,16 +3,7 @@
         <title>Something wrong</title>
         <link>https://erocolor.github.io/</link>
         <description>Time waits for no one</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Tue, 30 Apr 2024 12:21:07 &#43;0000</lastBuildDate>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language>
             <atom:link href="https://erocolor.github.io/index.xml" rel="self" type="application/rss+xml" />
-        <item>
-    <title>Moon</title>
-    <link>https://erocolor.github.io/posts/moon/</link>
-    <pubDate>Tue, 30 Apr 2024 12:21:07 &#43;0000</pubDate>
-    <author>erocolor</author>
-    <guid>https://erocolor.github.io/posts/moon/</guid>
-    <description><![CDATA[<p>3</p>
-<p>#世界</p>]]></description>
-</item>
-</channel>
+        </channel>
 </rss>
