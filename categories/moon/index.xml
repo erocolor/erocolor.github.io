@@ -1,0 +1,15 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>moon - 分类 - Something wrong</title>
+        <link>https://erocolor.github.io/categories/moon/</link>
+        <description>moon - 分类 - Something wrong</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Thu, 02 May 2024 07:55:59 &#43;0000</lastBuildDate><atom:link href="https://erocolor.github.io/categories/moon/" rel="self" type="application/rss+xml" /><item>
+    <title>Hello</title>
+    <link>https://erocolor.github.io/posts/moon/hello/</link>
+    <pubDate>Thu, 02 May 2024 07:55:59 &#43;0000</pubDate>
+    <author>erocolor</author>
+    <guid>https://erocolor.github.io/posts/moon/hello/</guid>
+    <description><![CDATA[<p>春起之草，不见其增，日有所长</p>]]></description>
+</item>
+</channel>
+</rss>

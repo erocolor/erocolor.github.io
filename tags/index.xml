@@ -3,5 +3,13 @@
         <title>Tags - 标签 - Something wrong</title>
         <link>https://erocolor.github.io/tags/</link>
         <description>Tags - 标签 - Something wrong</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><atom:link href="https://erocolor.github.io/tags/" rel="self" type="application/rss+xml" /></channel>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Thu, 02 May 2024 07:55:59 &#43;0000</lastBuildDate><atom:link href="https://erocolor.github.io/tags/" rel="self" type="application/rss+xml" /><item>
+    <title>something</title>
+    <link>https://erocolor.github.io/tags/something/</link>
+    <pubDate>Thu, 02 May 2024 07:55:59 &#43;0000</pubDate>
+    <author>erocolor</author>
+    <guid>https://erocolor.github.io/tags/something/</guid>
+    <description><![CDATA[]]></description>
+</item>
+</channel>
 </rss>
