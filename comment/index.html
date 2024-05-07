@@ -1,0 +1,48 @@
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8"> 
+<title>上梯留言</title>
+<style>
+.center {
+    text-align: center;
+}
+</style>
+</head>
+<body>
+
+
+<div class="center">
+  <p><b><a href="/" title="Something wrong">Time waits for no one</a></b></p>
+</div>
+
+</body>
+
+
+<head>
+  <!-- ... -->
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/@waline/client@v3/dist/waline.css"
+  />
+  <!-- ... -->
+</head>
+<body>
+  <!-- ... -->
+  <div id="waline"></div>
+  <script type="module">
+    import { init } from 'https://unpkg.com/@waline/client@v3/dist/waline.js';
+
+    init({
+      el: '#waline',
+      serverURL: 'waline-test-rho-lime.vercel.app',
+    });
+  </script>
+</body>
+
+
+
+</html>
