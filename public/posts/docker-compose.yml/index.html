@@ -1,0 +1,1410 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>从零开始的ubuntu使用 - something wrong</title><meta name="Description" content="Time waits for no one"><meta property="og:url" content="http://localhost:1313/posts/docker-compose.yml/">
+  <meta property="og:site_name" content="something wrong">
+  <meta property="og:title" content="从零开始的ubuntu使用">
+  <meta property="og:description" content="使用电视盒子装的armbian系统故障频发，实在懒得折腾，于是把之前替换下来的主机装上了ubuntu做服务器用，内存从4G跃进到16G,感觉真是幸福。 至于电费，算下来盒子的费用还有折腾的时间，原本还是赚的，现在也算是亡羊补牢吧。 现在硬件太贵，等到价位回落再考虑买个迷你主机。">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2026-05-25T21:20:52+08:00">
+    <meta property="article:modified_time" content="2026-05-25T21:20:52+08:00">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="从零开始的ubuntu使用">
+  <meta name="twitter:description" content="使用电视盒子装的armbian系统故障频发，实在懒得折腾，于是把之前替换下来的主机装上了ubuntu做服务器用，内存从4G跃进到16G,感觉真是幸福。 至于电费，算下来盒子的费用还有折腾的时间，原本还是赚的，现在也算是亡羊补牢吧。 现在硬件太贵，等到价位回落再考虑买个迷你主机。">
+<meta name="application-name" content="Time waits for no one">
+<meta name="apple-mobile-web-app-title" content="Time waits for no one">
+<meta name="referrer" content="no-referrer" /><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://localhost:1313/posts/docker-compose.yml/" /><link rel="prev" href="http://localhost:1313/posts/%E5%9B%9B%E6%9C%88%E9%82%A3%E7%8C%AB/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/css/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "从零开始的ubuntu使用",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/localhost:1313\/posts\/docker-compose.yml\/"
+        },"genre": "posts","wordcount":  1156 ,
+        "url": "http:\/\/localhost:1313\/posts\/docker-compose.yml\/","datePublished": "2026-05-25T21:20:52+08:00","dateModified": "2026-05-25T21:20:52+08:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "erocolor"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script>
+          const query = window.matchMedia('(prefers-color-scheme: dark)');
+          function applyTheme() {
+            let theme = window.localStorage?.getItem('theme') || 'auto';
+            let isDark = theme === 'dark' || (theme === 'auto' && query.matches);
+            document.body.setAttribute('theme', isDark? 'dark' : 'light');
+            document.body.setAttribute('cfg-theme', theme);
+          }
+
+          applyTheme();
+          query.addEventListener('change', applyTheme);
+        </script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="something wrong">Time waits for no one</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="something wrong">Time waits for no one</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">从零开始的ubuntu使用</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle" aria-hidden="true"></i>erocolor</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt" aria-hidden="true"></i>&nbsp;<time datetime="2026-05-25">2026-05-25</time>&nbsp;<i class="fas fa-pencil-alt" aria-hidden="true"></i>&nbsp;约 1156 字&nbsp;
+                <i class="far fa-clock" aria-hidden="true"></i>&nbsp;预计阅读 3 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents"></nav></div>
+            </div><div class="content" id="content"><p>使用电视盒子装的armbian系统故障频发，实在懒得折腾，于是把之前替换下来的主机装上了ubuntu做服务器用，内存从4G跃进到16G,感觉真是幸福。
+至于电费，算下来盒子的费用还有折腾的时间，原本还是赚的，现在也算是亡羊补牢吧。
+现在硬件太贵，等到价位回落再考虑买个迷你主机。</p>
+<p>记录一下安装系统之后的各种设置操作，以供后来参考</p>
+<h1 id="从零开始人ubuntu使用">从零开始人ubuntu使用</h1>
+<p>1,切换fcitx五笔输入法
+打开网络卷/16，下载码表文件和输入法主题。
+在下载目录打开终端。
+复制码表
+sudo cp -r /home/color/下载/wbx.main.dict /usr/share/libime/
+复制到主题到目录/home/color/.local/share/fcitx5/table/
+修改fcitx配置，五笔字型设置，排序规则：频率&ndash;&gt;否。
+2,登陆deepseek,开启辅助。
+3,设置临时系统网络代理。
+下载安装 clash-verge-rev
+<a href="https://github.com/Clash-Verge-rev/clash-verge-rev" target="_blank" rel="noopener noreffer ">https://github.com/Clash-Verge-rev/clash-verge-rev</a>
+4,更新系统</p>
+<div class="custom-code-block">
+  <div class="custom-code-header">
+    <span class="custom-code-lang">text</span>
+    <div class="custom-code-buttons"><button class="custom-code-copy" type="button">复制</button>
+    </div>
+  </div>
+  <div class="custom-code-body"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">sudo apt update &amp;&amp; sudo apt upgrade -y</span></span></code></pre></div></div>
+</div>
+
+<style>
+.custom-code-block {
+  margin: 1.2em 0;
+  border-radius: 6px;
+  border: 1px solid #e1e4e8;
+  overflow: hidden;
+  background: #f6f8fa;
+}
+.custom-code-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 12px;
+  background: #f0f0f0;
+  border-bottom: 1px solid #e1e4e8;
+  font-size: 0.85em;
+}
+.custom-code-lang {
+  color: #666;
+  text-transform: lowercase;
+}
+.custom-code-buttons {
+  display: flex;
+  gap: 10px;
+}
+.custom-code-buttons button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #0366d6;
+  font-size: 0.85em;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+.custom-code-buttons button:hover {
+  background: #e0e0e0;
+}
+.custom-code-body[data-foldable="true"] {
+  max-height: 300px;
+  overflow-y: hidden;
+}
+.custom-code-body[data-foldable="true"].expanded {
+  max-height: none;
+  overflow-y: visible;
+}
+.custom-code-body .highlight {
+  margin: 0;
+}
+</style>
+
+<script>
+(function() {
+  
+  const blocks = document.querySelectorAll('.custom-code-block');
+  blocks.forEach(block => {
+    const body = block.querySelector('.custom-code-body');
+    const foldBtn = block.querySelector('.custom-code-fold');
+    const copyBtn = block.querySelector('.custom-code-copy');
+    
+    
+    if (foldBtn && body) {
+      foldBtn.addEventListener('click', () => {
+        const isExpanded = body.classList.contains('expanded');
+        if (isExpanded) {
+          body.classList.remove('expanded');
+          foldBtn.innerHTML = '▼ 展开';
+        } else {
+          body.classList.add('expanded');
+          foldBtn.innerHTML = '▲ 折叠';
+        }
+      });
+    }
+    
+    
+    if (copyBtn) {
+      copyBtn.addEventListener('click', () => {
+        const code = block.querySelector('code').innerText;
+        navigator.clipboard.writeText(code).then(() => {
+          const original = copyBtn.innerHTML;
+          copyBtn.innerHTML = '✓ 已复制';
+          setTimeout(() => { copyBtn.innerHTML = original; }, 1500);
+        });
+      });
+    }
+  });
+})();
+</script>
+<p>5,安装多媒体解码器和常用字体</p>
+<div class="custom-code-block">
+  <div class="custom-code-header">
+    <span class="custom-code-lang">text</span>
+    <div class="custom-code-buttons"><button class="custom-code-copy" type="button">复制</button>
+    </div>
+  </div>
+  <div class="custom-code-body"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">sudo apt install ubuntu-restricted-extras -y</span></span></code></pre></div></div>
+</div>
+
+<style>
+.custom-code-block {
+  margin: 1.2em 0;
+  border-radius: 6px;
+  border: 1px solid #e1e4e8;
+  overflow: hidden;
+  background: #f6f8fa;
+}
+.custom-code-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 12px;
+  background: #f0f0f0;
+  border-bottom: 1px solid #e1e4e8;
+  font-size: 0.85em;
+}
+.custom-code-lang {
+  color: #666;
+  text-transform: lowercase;
+}
+.custom-code-buttons {
+  display: flex;
+  gap: 10px;
+}
+.custom-code-buttons button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #0366d6;
+  font-size: 0.85em;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+.custom-code-buttons button:hover {
+  background: #e0e0e0;
+}
+.custom-code-body[data-foldable="true"] {
+  max-height: 300px;
+  overflow-y: hidden;
+}
+.custom-code-body[data-foldable="true"].expanded {
+  max-height: none;
+  overflow-y: visible;
+}
+.custom-code-body .highlight {
+  margin: 0;
+}
+</style>
+
+<script>
+(function() {
+  
+  const blocks = document.querySelectorAll('.custom-code-block');
+  blocks.forEach(block => {
+    const body = block.querySelector('.custom-code-body');
+    const foldBtn = block.querySelector('.custom-code-fold');
+    const copyBtn = block.querySelector('.custom-code-copy');
+    
+    
+    if (foldBtn && body) {
+      foldBtn.addEventListener('click', () => {
+        const isExpanded = body.classList.contains('expanded');
+        if (isExpanded) {
+          body.classList.remove('expanded');
+          foldBtn.innerHTML = '▼ 展开';
+        } else {
+          body.classList.add('expanded');
+          foldBtn.innerHTML = '▲ 折叠';
+        }
+      });
+    }
+    
+    
+    if (copyBtn) {
+      copyBtn.addEventListener('click', () => {
+        const code = block.querySelector('code').innerText;
+        navigator.clipboard.writeText(code).then(() => {
+          const original = copyBtn.innerHTML;
+          copyBtn.innerHTML = '✓ 已复制';
+          setTimeout(() => { copyBtn.innerHTML = original; }, 1500);
+        });
+      });
+    }
+  });
+})();
+</script>
+<p>6,启用防火墙</p>
+<div class="custom-code-block">
+  <div class="custom-code-header">
+    <span class="custom-code-lang">text</span>
+    <div class="custom-code-buttons"><button class="custom-code-copy" type="button">复制</button>
+    </div>
+  </div>
+  <div class="custom-code-body"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">sudo ufw enable</span></span></code></pre></div></div>
+</div>
+
+<style>
+.custom-code-block {
+  margin: 1.2em 0;
+  border-radius: 6px;
+  border: 1px solid #e1e4e8;
+  overflow: hidden;
+  background: #f6f8fa;
+}
+.custom-code-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 12px;
+  background: #f0f0f0;
+  border-bottom: 1px solid #e1e4e8;
+  font-size: 0.85em;
+}
+.custom-code-lang {
+  color: #666;
+  text-transform: lowercase;
+}
+.custom-code-buttons {
+  display: flex;
+  gap: 10px;
+}
+.custom-code-buttons button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #0366d6;
+  font-size: 0.85em;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+.custom-code-buttons button:hover {
+  background: #e0e0e0;
+}
+.custom-code-body[data-foldable="true"] {
+  max-height: 300px;
+  overflow-y: hidden;
+}
+.custom-code-body[data-foldable="true"].expanded {
+  max-height: none;
+  overflow-y: visible;
+}
+.custom-code-body .highlight {
+  margin: 0;
+}
+</style>
+
+<script>
+(function() {
+  
+  const blocks = document.querySelectorAll('.custom-code-block');
+  blocks.forEach(block => {
+    const body = block.querySelector('.custom-code-body');
+    const foldBtn = block.querySelector('.custom-code-fold');
+    const copyBtn = block.querySelector('.custom-code-copy');
+    
+    
+    if (foldBtn && body) {
+      foldBtn.addEventListener('click', () => {
+        const isExpanded = body.classList.contains('expanded');
+        if (isExpanded) {
+          body.classList.remove('expanded');
+          foldBtn.innerHTML = '▼ 展开';
+        } else {
+          body.classList.add('expanded');
+          foldBtn.innerHTML = '▲ 折叠';
+        }
+      });
+    }
+    
+    
+    if (copyBtn) {
+      copyBtn.addEventListener('click', () => {
+        const code = block.querySelector('code').innerText;
+        navigator.clipboard.writeText(code).then(() => {
+          const original = copyBtn.innerHTML;
+          copyBtn.innerHTML = '✓ 已复制';
+          setTimeout(() => { copyBtn.innerHTML = original; }, 1500);
+        });
+      });
+    }
+  });
+})();
+</script>
+<p>7,安装优化工具</p>
+<div class="custom-code-block">
+  <div class="custom-code-header">
+    <span class="custom-code-lang">text</span>
+    <div class="custom-code-buttons"><button class="custom-code-copy" type="button">复制</button>
+    </div>
+  </div>
+  <div class="custom-code-body"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">sudo apt install gnome-tweaks -y</span></span></code></pre></div></div>
+</div>
+
+<style>
+.custom-code-block {
+  margin: 1.2em 0;
+  border-radius: 6px;
+  border: 1px solid #e1e4e8;
+  overflow: hidden;
+  background: #f6f8fa;
+}
+.custom-code-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 12px;
+  background: #f0f0f0;
+  border-bottom: 1px solid #e1e4e8;
+  font-size: 0.85em;
+}
+.custom-code-lang {
+  color: #666;
+  text-transform: lowercase;
+}
+.custom-code-buttons {
+  display: flex;
+  gap: 10px;
+}
+.custom-code-buttons button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #0366d6;
+  font-size: 0.85em;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+.custom-code-buttons button:hover {
+  background: #e0e0e0;
+}
+.custom-code-body[data-foldable="true"] {
+  max-height: 300px;
+  overflow-y: hidden;
+}
+.custom-code-body[data-foldable="true"].expanded {
+  max-height: none;
+  overflow-y: visible;
+}
+.custom-code-body .highlight {
+  margin: 0;
+}
+</style>
+
+<script>
+(function() {
+  
+  const blocks = document.querySelectorAll('.custom-code-block');
+  blocks.forEach(block => {
+    const body = block.querySelector('.custom-code-body');
+    const foldBtn = block.querySelector('.custom-code-fold');
+    const copyBtn = block.querySelector('.custom-code-copy');
+    
+    
+    if (foldBtn && body) {
+      foldBtn.addEventListener('click', () => {
+        const isExpanded = body.classList.contains('expanded');
+        if (isExpanded) {
+          body.classList.remove('expanded');
+          foldBtn.innerHTML = '▼ 展开';
+        } else {
+          body.classList.add('expanded');
+          foldBtn.innerHTML = '▲ 折叠';
+        }
+      });
+    }
+    
+    
+    if (copyBtn) {
+      copyBtn.addEventListener('click', () => {
+        const code = block.querySelector('code').innerText;
+        navigator.clipboard.writeText(code).then(() => {
+          const original = copyBtn.innerHTML;
+          copyBtn.innerHTML = '✓ 已复制';
+          setTimeout(() => { copyBtn.innerHTML = original; }, 1500);
+        });
+      });
+    }
+  });
+})();
+</script>
+<p>8,挂载nas-nfs盘</p>
+<h1 id="1-安装-nfs-客户端">1. 安装 NFS 客户端</h1>
+<div class="custom-code-block">
+  <div class="custom-code-header">
+    <span class="custom-code-lang">text</span>
+    <div class="custom-code-buttons"><button class="custom-code-copy" type="button">复制</button>
+    </div>
+  </div>
+  <div class="custom-code-body"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">sudo apt install nfs-common -y</span></span></code></pre></div></div>
+</div>
+
+<style>
+.custom-code-block {
+  margin: 1.2em 0;
+  border-radius: 6px;
+  border: 1px solid #e1e4e8;
+  overflow: hidden;
+  background: #f6f8fa;
+}
+.custom-code-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 12px;
+  background: #f0f0f0;
+  border-bottom: 1px solid #e1e4e8;
+  font-size: 0.85em;
+}
+.custom-code-lang {
+  color: #666;
+  text-transform: lowercase;
+}
+.custom-code-buttons {
+  display: flex;
+  gap: 10px;
+}
+.custom-code-buttons button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #0366d6;
+  font-size: 0.85em;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+.custom-code-buttons button:hover {
+  background: #e0e0e0;
+}
+.custom-code-body[data-foldable="true"] {
+  max-height: 300px;
+  overflow-y: hidden;
+}
+.custom-code-body[data-foldable="true"].expanded {
+  max-height: none;
+  overflow-y: visible;
+}
+.custom-code-body .highlight {
+  margin: 0;
+}
+</style>
+
+<script>
+(function() {
+  
+  const blocks = document.querySelectorAll('.custom-code-block');
+  blocks.forEach(block => {
+    const body = block.querySelector('.custom-code-body');
+    const foldBtn = block.querySelector('.custom-code-fold');
+    const copyBtn = block.querySelector('.custom-code-copy');
+    
+    
+    if (foldBtn && body) {
+      foldBtn.addEventListener('click', () => {
+        const isExpanded = body.classList.contains('expanded');
+        if (isExpanded) {
+          body.classList.remove('expanded');
+          foldBtn.innerHTML = '▼ 展开';
+        } else {
+          body.classList.add('expanded');
+          foldBtn.innerHTML = '▲ 折叠';
+        }
+      });
+    }
+    
+    
+    if (copyBtn) {
+      copyBtn.addEventListener('click', () => {
+        const code = block.querySelector('code').innerText;
+        navigator.clipboard.writeText(code).then(() => {
+          const original = copyBtn.innerHTML;
+          copyBtn.innerHTML = '✓ 已复制';
+          setTimeout(() => { copyBtn.innerHTML = original; }, 1500);
+        });
+      });
+    }
+  });
+})();
+</script>
+<h1 id="2-创建挂载点">2. 创建挂载点</h1>
+<div class="custom-code-block">
+  <div class="custom-code-header">
+    <span class="custom-code-lang">text</span>
+    <div class="custom-code-buttons"><button class="custom-code-copy" type="button">复制</button>
+    </div>
+  </div>
+  <div class="custom-code-body"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">sudo mkdir -p /mnt/nas/16</span></span></code></pre></div></div>
+</div>
+
+<style>
+.custom-code-block {
+  margin: 1.2em 0;
+  border-radius: 6px;
+  border: 1px solid #e1e4e8;
+  overflow: hidden;
+  background: #f6f8fa;
+}
+.custom-code-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 12px;
+  background: #f0f0f0;
+  border-bottom: 1px solid #e1e4e8;
+  font-size: 0.85em;
+}
+.custom-code-lang {
+  color: #666;
+  text-transform: lowercase;
+}
+.custom-code-buttons {
+  display: flex;
+  gap: 10px;
+}
+.custom-code-buttons button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #0366d6;
+  font-size: 0.85em;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+.custom-code-buttons button:hover {
+  background: #e0e0e0;
+}
+.custom-code-body[data-foldable="true"] {
+  max-height: 300px;
+  overflow-y: hidden;
+}
+.custom-code-body[data-foldable="true"].expanded {
+  max-height: none;
+  overflow-y: visible;
+}
+.custom-code-body .highlight {
+  margin: 0;
+}
+</style>
+
+<script>
+(function() {
+  
+  const blocks = document.querySelectorAll('.custom-code-block');
+  blocks.forEach(block => {
+    const body = block.querySelector('.custom-code-body');
+    const foldBtn = block.querySelector('.custom-code-fold');
+    const copyBtn = block.querySelector('.custom-code-copy');
+    
+    
+    if (foldBtn && body) {
+      foldBtn.addEventListener('click', () => {
+        const isExpanded = body.classList.contains('expanded');
+        if (isExpanded) {
+          body.classList.remove('expanded');
+          foldBtn.innerHTML = '▼ 展开';
+        } else {
+          body.classList.add('expanded');
+          foldBtn.innerHTML = '▲ 折叠';
+        }
+      });
+    }
+    
+    
+    if (copyBtn) {
+      copyBtn.addEventListener('click', () => {
+        const code = block.querySelector('code').innerText;
+        navigator.clipboard.writeText(code).then(() => {
+          const original = copyBtn.innerHTML;
+          copyBtn.innerHTML = '✓ 已复制';
+          setTimeout(() => { copyBtn.innerHTML = original; }, 1500);
+        });
+      });
+    }
+  });
+})();
+</script>
+<h1 id="3-挂载-nfs-共享">3. 挂载 NFS 共享</h1>
+<div class="custom-code-block">
+  <div class="custom-code-header">
+    <span class="custom-code-lang">text</span>
+    <div class="custom-code-buttons"><button class="custom-code-copy" type="button">复制</button>
+    </div>
+  </div>
+  <div class="custom-code-body"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">sudo mount -t nfs -o nfsvers=3,rw 192.168.1.177:/volume2/16 /mnt/nas/16</span></span></code></pre></div></div>
+</div>
+
+<style>
+.custom-code-block {
+  margin: 1.2em 0;
+  border-radius: 6px;
+  border: 1px solid #e1e4e8;
+  overflow: hidden;
+  background: #f6f8fa;
+}
+.custom-code-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 12px;
+  background: #f0f0f0;
+  border-bottom: 1px solid #e1e4e8;
+  font-size: 0.85em;
+}
+.custom-code-lang {
+  color: #666;
+  text-transform: lowercase;
+}
+.custom-code-buttons {
+  display: flex;
+  gap: 10px;
+}
+.custom-code-buttons button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #0366d6;
+  font-size: 0.85em;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+.custom-code-buttons button:hover {
+  background: #e0e0e0;
+}
+.custom-code-body[data-foldable="true"] {
+  max-height: 300px;
+  overflow-y: hidden;
+}
+.custom-code-body[data-foldable="true"].expanded {
+  max-height: none;
+  overflow-y: visible;
+}
+.custom-code-body .highlight {
+  margin: 0;
+}
+</style>
+
+<script>
+(function() {
+  
+  const blocks = document.querySelectorAll('.custom-code-block');
+  blocks.forEach(block => {
+    const body = block.querySelector('.custom-code-body');
+    const foldBtn = block.querySelector('.custom-code-fold');
+    const copyBtn = block.querySelector('.custom-code-copy');
+    
+    
+    if (foldBtn && body) {
+      foldBtn.addEventListener('click', () => {
+        const isExpanded = body.classList.contains('expanded');
+        if (isExpanded) {
+          body.classList.remove('expanded');
+          foldBtn.innerHTML = '▼ 展开';
+        } else {
+          body.classList.add('expanded');
+          foldBtn.innerHTML = '▲ 折叠';
+        }
+      });
+    }
+    
+    
+    if (copyBtn) {
+      copyBtn.addEventListener('click', () => {
+        const code = block.querySelector('code').innerText;
+        navigator.clipboard.writeText(code).then(() => {
+          const original = copyBtn.innerHTML;
+          copyBtn.innerHTML = '✓ 已复制';
+          setTimeout(() => { copyBtn.innerHTML = original; }, 1500);
+        });
+      });
+    }
+  });
+})();
+</script>
+<h1 id="4-设置开机自动挂载">4. 设置开机自动挂载</h1>
+<div class="custom-code-block">
+  <div class="custom-code-header">
+    <span class="custom-code-lang">text</span>
+    <div class="custom-code-buttons"><button class="custom-code-copy" type="button">复制</button>
+    </div>
+  </div>
+  <div class="custom-code-body"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">echo &#34;192.168.1.177:/volume2/16 /mnt/nas/16 nfs nfsvers=3,rw,_netdev,x-systemd.automount 0 0&#34; | sudo tee -a /etc/fstab
+</span></span><span class="line"><span class="cl">echo &#34;192.168.1.177:/volume3/10 /mnt/nas/10 nfs nfsvers=3,rw,_netdev,x-systemd.automount 0 0&#34; | sudo tee -a /etc/fstab</span></span></code></pre></div></div>
+</div>
+
+<style>
+.custom-code-block {
+  margin: 1.2em 0;
+  border-radius: 6px;
+  border: 1px solid #e1e4e8;
+  overflow: hidden;
+  background: #f6f8fa;
+}
+.custom-code-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 12px;
+  background: #f0f0f0;
+  border-bottom: 1px solid #e1e4e8;
+  font-size: 0.85em;
+}
+.custom-code-lang {
+  color: #666;
+  text-transform: lowercase;
+}
+.custom-code-buttons {
+  display: flex;
+  gap: 10px;
+}
+.custom-code-buttons button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #0366d6;
+  font-size: 0.85em;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+.custom-code-buttons button:hover {
+  background: #e0e0e0;
+}
+.custom-code-body[data-foldable="true"] {
+  max-height: 300px;
+  overflow-y: hidden;
+}
+.custom-code-body[data-foldable="true"].expanded {
+  max-height: none;
+  overflow-y: visible;
+}
+.custom-code-body .highlight {
+  margin: 0;
+}
+</style>
+
+<script>
+(function() {
+  
+  const blocks = document.querySelectorAll('.custom-code-block');
+  blocks.forEach(block => {
+    const body = block.querySelector('.custom-code-body');
+    const foldBtn = block.querySelector('.custom-code-fold');
+    const copyBtn = block.querySelector('.custom-code-copy');
+    
+    
+    if (foldBtn && body) {
+      foldBtn.addEventListener('click', () => {
+        const isExpanded = body.classList.contains('expanded');
+        if (isExpanded) {
+          body.classList.remove('expanded');
+          foldBtn.innerHTML = '▼ 展开';
+        } else {
+          body.classList.add('expanded');
+          foldBtn.innerHTML = '▲ 折叠';
+        }
+      });
+    }
+    
+    
+    if (copyBtn) {
+      copyBtn.addEventListener('click', () => {
+        const code = block.querySelector('code').innerText;
+        navigator.clipboard.writeText(code).then(() => {
+          const original = copyBtn.innerHTML;
+          copyBtn.innerHTML = '✓ 已复制';
+          setTimeout(() => { copyBtn.innerHTML = original; }, 1500);
+        });
+      });
+    }
+  });
+})();
+</script>
+<h1 id="5-在容器中使用系统路径">5. 在容器中使用系统路径</h1>
+<p>docker run -v /mnt/nas/16:/data &hellip;</p>
+<h1 id="6-放行端口">6. 放行端口</h1>
+<p><code>sudo ufw allow 7892</code>
+查看当前防火墙放行
+<code>sudo ufw status numbered</code></p>
+<p>/mnt/nas/10
+/mnt/nas/16
+是NAS里的两块硬盘，之后打算抛弃NAS直接装在服务器上。</p>
+<p>docker-compose.yml备份</p>
+<div class="custom-code-block">
+  <div class="custom-code-header">
+    <span class="custom-code-lang">text</span>
+    <div class="custom-code-buttons"><button class="custom-code-fold" type="button">▼ 折叠</button><button class="custom-code-copy" type="button">复制</button>
+    </div>
+  </div>
+  <div class="custom-code-body" data-foldable="true"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">services:
+</span></span><span class="line"><span class="cl">  # ==================== 自动追番 ====================
+</span></span><span class="line"><span class="cl">  ab:
+</span></span><span class="line"><span class="cl">    image: &#34;ghcr.io/estrellaxd/auto_bangumi:latest&#34;
+</span></span><span class="line"><span class="cl">    container_name: ab
+</span></span><span class="line"><span class="cl">    volumes:
+</span></span><span class="line"><span class="cl">      - /home/color/ab/config:/app/config
+</span></span><span class="line"><span class="cl">      - /home/color/ab/data:/app/data
+</span></span><span class="line"><span class="cl">      - /mnt/nas/10:/10          # 改用系统 NFS 挂载
+</span></span><span class="line"><span class="cl">      - /mnt/nas/16:/16
+</span></span><span class="line"><span class="cl">    restart: unless-stopped
+</span></span><span class="line"><span class="cl">    network_mode: host
+</span></span><span class="line"><span class="cl">    environment:
+</span></span><span class="line"><span class="cl">      - TZ=Asia/Shanghai
+</span></span><span class="line"><span class="cl">      - PUID=1000
+</span></span><span class="line"><span class="cl">      - PGID=1000
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  # ==================== 媒体服务器 ====================
+</span></span><span class="line"><span class="cl">  emby:
+</span></span><span class="line"><span class="cl">    image: amilys/embyserver:latest
+</span></span><span class="line"><span class="cl">    container_name: emby
+</span></span><span class="line"><span class="cl">    network_mode: host
+</span></span><span class="line"><span class="cl">    environment:
+</span></span><span class="line"><span class="cl">      - HTTP_PROXY=http://127.0.0.1:7890
+</span></span><span class="line"><span class="cl">      - HTTPS_PROXY=http://127.0.0.1:7890
+</span></span><span class="line"><span class="cl">      - PUID=1000
+</span></span><span class="line"><span class="cl">      - PGID=1000
+</span></span><span class="line"><span class="cl">      - TZ=Asia/Shanghai
+</span></span><span class="line"><span class="cl">    volumes:
+</span></span><span class="line"><span class="cl">      - /home/color/emby:/config
+</span></span><span class="line"><span class="cl">      - /mnt/nas/10:/10
+</span></span><span class="line"><span class="cl">      - /mnt/nas/16:/16
+</span></span><span class="line"><span class="cl">    devices:
+</span></span><span class="line"><span class="cl">      - /dev/dri:/dev/dri
+</span></span><span class="line"><span class="cl">    restart: always
+</span></span><span class="line"><span class="cl">  # ==================== BT 下载器 ====================
+</span></span><span class="line"><span class="cl">  qb:
+</span></span><span class="line"><span class="cl">    image: linuxserver/qbittorrent:5.0.0
+</span></span><span class="line"><span class="cl">    container_name: qb
+</span></span><span class="line"><span class="cl">    network_mode: host
+</span></span><span class="line"><span class="cl">    mem_limit: 2G
+</span></span><span class="line"><span class="cl">    environment:
+</span></span><span class="line"><span class="cl">      - PUID=1000
+</span></span><span class="line"><span class="cl">      - PGID=1000
+</span></span><span class="line"><span class="cl">      - TZ=Asia/Shanghai
+</span></span><span class="line"><span class="cl">      - WEBUI_PORT=8080
+</span></span><span class="line"><span class="cl">    volumes:
+</span></span><span class="line"><span class="cl">      - /home/color/qb/config:/config
+</span></span><span class="line"><span class="cl">      - /home/color/qb/downloads:/downloads
+</span></span><span class="line"><span class="cl">      - /mnt/nas/16:/16
+</span></span><span class="line"><span class="cl">    restart: always
+</span></span><span class="line"><span class="cl">  # ==================== qBittorrent 2 - 辅种/刷流 ====================
+</span></span><span class="line"><span class="cl">  qb2:
+</span></span><span class="line"><span class="cl">    image: linuxserver/qbittorrent:5.0.0
+</span></span><span class="line"><span class="cl">    container_name: qb2
+</span></span><span class="line"><span class="cl">    network_mode: host
+</span></span><span class="line"><span class="cl">    mem_limit: 2G
+</span></span><span class="line"><span class="cl">    environment:
+</span></span><span class="line"><span class="cl">      - PUID=1000
+</span></span><span class="line"><span class="cl">      - PGID=1000
+</span></span><span class="line"><span class="cl">      - TZ=Asia/Shanghai
+</span></span><span class="line"><span class="cl">      - WEBUI_PORT=8081        # ⚠️ 不同端口，避免冲突
+</span></span><span class="line"><span class="cl">    volumes:
+</span></span><span class="line"><span class="cl">      - /home/color/qb2/config:/config   # ⚠️ 不同配置目录
+</span></span><span class="line"><span class="cl">      - /mnt/downloads2:/downloads       # ⚠️ 不同下载目录（可选）
+</span></span><span class="line"><span class="cl">      - /mnt/nas/16:/16
+</span></span><span class="line"><span class="cl">    restart: always
+</span></span><span class="line"><span class="cl">  # ==================== BT 下载器 - Transmission ====================
+</span></span><span class="line"><span class="cl">  tr:
+</span></span><span class="line"><span class="cl">    image: linuxserver/transmission:latest
+</span></span><span class="line"><span class="cl">    container_name: tr
+</span></span><span class="line"><span class="cl">    network_mode: host
+</span></span><span class="line"><span class="cl">    environment:
+</span></span><span class="line"><span class="cl">      - PUID=1000
+</span></span><span class="line"><span class="cl">      - PGID=1000
+</span></span><span class="line"><span class="cl">      - TZ=Asia/Shanghai
+</span></span><span class="line"><span class="cl">      - USER=color
+</span></span><span class="line"><span class="cl">      - PASS=adminadmin
+</span></span><span class="line"><span class="cl">      - TRANSMISSION_WEB_HOME=/config/web
+</span></span><span class="line"><span class="cl">    volumes:
+</span></span><span class="line"><span class="cl">      - /home/color/tr:/config
+</span></span><span class="line"><span class="cl">      - /mnt/nas/16:/16
+</span></span><span class="line"><span class="cl">      - /home/color/tr/downloads:/downloads
+</span></span><span class="line"><span class="cl">      - /home/color/tr/watch:/watch
+</span></span><span class="line"><span class="cl">    restart: unless-stopped
+</span></span><span class="line"><span class="cl">  # ==================== PT 助手 ====================
+</span></span><span class="line"><span class="cl">  iy:
+</span></span><span class="line"><span class="cl">    image: iyuucn/iyuuplus-dev:latest
+</span></span><span class="line"><span class="cl">    container_name: iy
+</span></span><span class="line"><span class="cl">    environment:
+</span></span><span class="line"><span class="cl">      - TZ=Asia/Shanghai
+</span></span><span class="line"><span class="cl">      - PUID=1000
+</span></span><span class="line"><span class="cl">      - PGID=1000
+</span></span><span class="line"><span class="cl">    volumes:
+</span></span><span class="line"><span class="cl">      - /home/color/iyuu/config:/iyuu
+</span></span><span class="line"><span class="cl">      - /home/color/iyuu/data:/data
+</span></span><span class="line"><span class="cl">      - /home/color/qb/config:/qb        # 挂载 QB 配置目录，方便 IYUU 读取
+</span></span><span class="line"><span class="cl">      - /mnt/nas/10:/10                  # 改为系统挂载
+</span></span><span class="line"><span class="cl">      - /mnt/nas/16:/16                  # 改为系统挂载
+</span></span><span class="line"><span class="cl">    ports:
+</span></span><span class="line"><span class="cl">      - &#34;8780:8780&#34;
+</span></span><span class="line"><span class="cl">    restart: always
+</span></span><span class="line"><span class="cl">    stdin_open: true
+</span></span><span class="line"><span class="cl">    tty: true
+</span></span><span class="line"><span class="cl">  # ==================== 笔记服务 ====================
+</span></span><span class="line"><span class="cl">  mm:
+</span></span><span class="line"><span class="cl">    image: neosmemo/memos:stable
+</span></span><span class="line"><span class="cl">    container_name: mm
+</span></span><span class="line"><span class="cl">    environment:
+</span></span><span class="line"><span class="cl">      - TZ=Asia/Shanghai
+</span></span><span class="line"><span class="cl">      - MEMOS_MODE=prod
+</span></span><span class="line"><span class="cl">      - MEMOS_PORT=5230
+</span></span><span class="line"><span class="cl">    volumes:
+</span></span><span class="line"><span class="cl">      - /home/color/mm:/var/opt/memos
+</span></span><span class="line"><span class="cl">    ports:
+</span></span><span class="line"><span class="cl">      - 5230:5230
+</span></span><span class="line"><span class="cl">    restart: always
+</span></span><span class="line"><span class="cl">      # ==================== BT 反吸血 ====================
+</span></span><span class="line"><span class="cl">  pbh:
+</span></span><span class="line"><span class="cl">    image: ghostchu/peerbanhelper:latest
+</span></span><span class="line"><span class="cl">    container_name: pbh
+</span></span><span class="line"><span class="cl">    environment:
+</span></span><span class="line"><span class="cl">      - TZ=Asia/Shanghai
+</span></span><span class="line"><span class="cl">      - PUID=1000
+</span></span><span class="line"><span class="cl">      - PGID=1000
+</span></span><span class="line"><span class="cl">    volumes:
+</span></span><span class="line"><span class="cl">      - /home/color/pbh/data:/app/data
+</span></span><span class="line"><span class="cl">      - /etc/localtime:/etc/localtime:ro
+</span></span><span class="line"><span class="cl">    ports:
+</span></span><span class="line"><span class="cl">      - 9898:9898
+</span></span><span class="line"><span class="cl">    restart: always
+</span></span><span class="line"><span class="cl">  # ==================== 硬链接工具 ====================
+</span></span><span class="line"><span class="cl">  hl:
+</span></span><span class="line"><span class="cl">    image: likun7981/hlink:latest
+</span></span><span class="line"><span class="cl">    container_name: hl
+</span></span><span class="line"><span class="cl">    environment:
+</span></span><span class="line"><span class="cl">      - HLINK_HOME=/home/color/hl
+</span></span><span class="line"><span class="cl">    volumes:
+</span></span><span class="line"><span class="cl">      - /home/color/color4/hl:/home/color/hl
+</span></span><span class="line"><span class="cl">      - /mnt/nas/10:/10
+</span></span><span class="line"><span class="cl">      - /mnt/nas/16:/16
+</span></span><span class="line"><span class="cl">    ports:
+</span></span><span class="line"><span class="cl">      - 9030:9090
+</span></span><span class="line"><span class="cl">    restart: always
+</span></span><span class="line"><span class="cl">  # ==================== 思源笔记 ====================
+</span></span><span class="line"><span class="cl">  sy:
+</span></span><span class="line"><span class="cl">    image: b3log/siyuan:latest
+</span></span><span class="line"><span class="cl">    container_name: sy
+</span></span><span class="line"><span class="cl">    environment:
+</span></span><span class="line"><span class="cl">      - TZ=Asia/Shanghai
+</span></span><span class="line"><span class="cl">      - PUID=1000
+</span></span><span class="line"><span class="cl">      - PGID=1000
+</span></span><span class="line"><span class="cl">    volumes:
+</span></span><span class="line"><span class="cl">      - /home/color/sy/workspace:/siyuan/workspace
+</span></span><span class="line"><span class="cl">    ports:
+</span></span><span class="line"><span class="cl">      - 6806:6806
+</span></span><span class="line"><span class="cl">    command:
+</span></span><span class="line"><span class="cl">      - --workspace=/siyuan/workspace/
+</span></span><span class="line"><span class="cl">      - --accessAuthCode=xxxx    #密码
+</span></span><span class="line"><span class="cl">    restart: always
+</span></span><span class="line"><span class="cl">   # ==================== 导航面板 ====================
+</span></span><span class="line"><span class="cl">  sp:
+</span></span><span class="line"><span class="cl">    image: hslr/sun-panel:latest
+</span></span><span class="line"><span class="cl">    container_name: sp
+</span></span><span class="line"><span class="cl">    environment:
+</span></span><span class="line"><span class="cl">      - TZ=Asia/Shanghai
+</span></span><span class="line"><span class="cl">      - PUID=1000
+</span></span><span class="line"><span class="cl">      - PGID=1000
+</span></span><span class="line"><span class="cl">    volumes:
+</span></span><span class="line"><span class="cl">      - /home/color/sp/conf:/app/conf
+</span></span><span class="line"><span class="cl">      - /var/run/docker.sock:/var/run/docker.sock  # 管理 Docker 容器
+</span></span><span class="line"><span class="cl">    ports:
+</span></span><span class="line"><span class="cl">      - 3002:3002
+</span></span><span class="line"><span class="cl">    restart: always
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  # ======= meta面板 ==========
+</span></span><span class="line"><span class="cl">  metacubexd:
+</span></span><span class="line"><span class="cl">    container_name: meta
+</span></span><span class="line"><span class="cl">    image: swr.cn-north-4.myhuaweicloud.com/ddn-k8s/ghcr.io/metacubex/metacubexd:v1.245.1
+</span></span><span class="line"><span class="cl">    restart: always
+</span></span><span class="line"><span class="cl">    ports:
+</span></span><span class="line"><span class="cl">      - &#39;3980:80&#39;</span></span></code></pre></div></div>
+</div>
+
+<style>
+.custom-code-block {
+  margin: 1.2em 0;
+  border-radius: 6px;
+  border: 1px solid #e1e4e8;
+  overflow: hidden;
+  background: #f6f8fa;
+}
+.custom-code-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 12px;
+  background: #f0f0f0;
+  border-bottom: 1px solid #e1e4e8;
+  font-size: 0.85em;
+}
+.custom-code-lang {
+  color: #666;
+  text-transform: lowercase;
+}
+.custom-code-buttons {
+  display: flex;
+  gap: 10px;
+}
+.custom-code-buttons button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #0366d6;
+  font-size: 0.85em;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+.custom-code-buttons button:hover {
+  background: #e0e0e0;
+}
+.custom-code-body[data-foldable="true"] {
+  max-height: 300px;
+  overflow-y: hidden;
+}
+.custom-code-body[data-foldable="true"].expanded {
+  max-height: none;
+  overflow-y: visible;
+}
+.custom-code-body .highlight {
+  margin: 0;
+}
+</style>
+
+<script>
+(function() {
+  
+  const blocks = document.querySelectorAll('.custom-code-block');
+  blocks.forEach(block => {
+    const body = block.querySelector('.custom-code-body');
+    const foldBtn = block.querySelector('.custom-code-fold');
+    const copyBtn = block.querySelector('.custom-code-copy');
+    
+    
+    if (foldBtn && body) {
+      foldBtn.addEventListener('click', () => {
+        const isExpanded = body.classList.contains('expanded');
+        if (isExpanded) {
+          body.classList.remove('expanded');
+          foldBtn.innerHTML = '▼ 展开';
+        } else {
+          body.classList.add('expanded');
+          foldBtn.innerHTML = '▲ 折叠';
+        }
+      });
+    }
+    
+    
+    if (copyBtn) {
+      copyBtn.addEventListener('click', () => {
+        const code = block.querySelector('code').innerText;
+        navigator.clipboard.writeText(code).then(() => {
+          const original = copyBtn.innerHTML;
+          copyBtn.innerHTML = '✓ 已复制';
+          setTimeout(() => { copyBtn.innerHTML = original; }, 1500);
+        });
+      });
+    }
+  });
+})();
+</script>
+<p>ubuntu的远程桌面默认必须有显示器，并且锁屏下无法连接。
+安装扩展管理器可以在解锁。</p>
+<div class="custom-code-block">
+  <div class="custom-code-header">
+    <span class="custom-code-lang">text</span>
+    <div class="custom-code-buttons"><button class="custom-code-copy" type="button">复制</button>
+    </div>
+  </div>
+  <div class="custom-code-body"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">sudo apt install gnome-shell-extension-manager -y</span></span></code></pre></div></div>
+</div>
+
+<style>
+.custom-code-block {
+  margin: 1.2em 0;
+  border-radius: 6px;
+  border: 1px solid #e1e4e8;
+  overflow: hidden;
+  background: #f6f8fa;
+}
+.custom-code-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 12px;
+  background: #f0f0f0;
+  border-bottom: 1px solid #e1e4e8;
+  font-size: 0.85em;
+}
+.custom-code-lang {
+  color: #666;
+  text-transform: lowercase;
+}
+.custom-code-buttons {
+  display: flex;
+  gap: 10px;
+}
+.custom-code-buttons button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #0366d6;
+  font-size: 0.85em;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+.custom-code-buttons button:hover {
+  background: #e0e0e0;
+}
+.custom-code-body[data-foldable="true"] {
+  max-height: 300px;
+  overflow-y: hidden;
+}
+.custom-code-body[data-foldable="true"].expanded {
+  max-height: none;
+  overflow-y: visible;
+}
+.custom-code-body .highlight {
+  margin: 0;
+}
+</style>
+
+<script>
+(function() {
+  
+  const blocks = document.querySelectorAll('.custom-code-block');
+  blocks.forEach(block => {
+    const body = block.querySelector('.custom-code-body');
+    const foldBtn = block.querySelector('.custom-code-fold');
+    const copyBtn = block.querySelector('.custom-code-copy');
+    
+    
+    if (foldBtn && body) {
+      foldBtn.addEventListener('click', () => {
+        const isExpanded = body.classList.contains('expanded');
+        if (isExpanded) {
+          body.classList.remove('expanded');
+          foldBtn.innerHTML = '▼ 展开';
+        } else {
+          body.classList.add('expanded');
+          foldBtn.innerHTML = '▲ 折叠';
+        }
+      });
+    }
+    
+    
+    if (copyBtn) {
+      copyBtn.addEventListener('click', () => {
+        const code = block.querySelector('code').innerText;
+        navigator.clipboard.writeText(code).then(() => {
+          const original = copyBtn.innerHTML;
+          copyBtn.innerHTML = '✓ 已复制';
+          setTimeout(() => { copyBtn.innerHTML = original; }, 1500);
+        });
+      });
+    }
+  });
+})();
+</script>
+<p>解锁</p>
+<div class="custom-code-block">
+  <div class="custom-code-header">
+    <span class="custom-code-lang">text</span>
+    <div class="custom-code-buttons"><button class="custom-code-copy" type="button">复制</button>
+    </div>
+  </div>
+  <div class="custom-code-body"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">sudo loginctl unlock-sessions</span></span></code></pre></div></div>
+</div>
+
+<style>
+.custom-code-block {
+  margin: 1.2em 0;
+  border-radius: 6px;
+  border: 1px solid #e1e4e8;
+  overflow: hidden;
+  background: #f6f8fa;
+}
+.custom-code-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 12px;
+  background: #f0f0f0;
+  border-bottom: 1px solid #e1e4e8;
+  font-size: 0.85em;
+}
+.custom-code-lang {
+  color: #666;
+  text-transform: lowercase;
+}
+.custom-code-buttons {
+  display: flex;
+  gap: 10px;
+}
+.custom-code-buttons button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #0366d6;
+  font-size: 0.85em;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+.custom-code-buttons button:hover {
+  background: #e0e0e0;
+}
+.custom-code-body[data-foldable="true"] {
+  max-height: 300px;
+  overflow-y: hidden;
+}
+.custom-code-body[data-foldable="true"].expanded {
+  max-height: none;
+  overflow-y: visible;
+}
+.custom-code-body .highlight {
+  margin: 0;
+}
+</style>
+
+<script>
+(function() {
+  
+  const blocks = document.querySelectorAll('.custom-code-block');
+  blocks.forEach(block => {
+    const body = block.querySelector('.custom-code-body');
+    const foldBtn = block.querySelector('.custom-code-fold');
+    const copyBtn = block.querySelector('.custom-code-copy');
+    
+    
+    if (foldBtn && body) {
+      foldBtn.addEventListener('click', () => {
+        const isExpanded = body.classList.contains('expanded');
+        if (isExpanded) {
+          body.classList.remove('expanded');
+          foldBtn.innerHTML = '▼ 展开';
+        } else {
+          body.classList.add('expanded');
+          foldBtn.innerHTML = '▲ 折叠';
+        }
+      });
+    }
+    
+    
+    if (copyBtn) {
+      copyBtn.addEventListener('click', () => {
+        const code = block.querySelector('code').innerText;
+        navigator.clipboard.writeText(code).then(() => {
+          const original = copyBtn.innerHTML;
+          copyBtn.innerHTML = '✓ 已复制';
+          setTimeout(() => { copyBtn.innerHTML = original; }, 1500);
+        });
+      });
+    }
+  });
+})();
+</script>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2026-05-25</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 X" data-sharer="x" data-url="http://localhost:1313/posts/docker-compose.yml/" data-title="从零开始的ubuntu使用"><i class="fab fa-x-twitter" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Threads" data-sharer="threads" data-url="http://localhost:1313/posts/docker-compose.yml/" data-title="从零开始的ubuntu使用"><i class="fab fa-threads" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://localhost:1313/posts/docker-compose.yml/"><i class="fab fa-facebook-square" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="http://localhost:1313/posts/docker-compose.yml/" data-title="从零开始的ubuntu使用"><i class="fab fa-hacker-news" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://localhost:1313/posts/docker-compose.yml/" data-title="从零开始的ubuntu使用"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://localhost:1313/posts/docker-compose.yml/" data-title="从零开始的ubuntu使用"><i class="fab fa-weibo" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Diaspora" data-sharer="diaspora" data-url="http://localhost:1313/posts/docker-compose.yml/" data-title="从零开始的ubuntu使用" data-description=""><i class="fab fa-diaspora" aria-hidden="true"></i></a><a href="https://t.me/share/url?url=http%3a%2f%2flocalhost%3a1313%2fposts%2fdocker-compose.yml%2f&amp;text=%e4%bb%8e%e9%9b%b6%e5%bc%80%e5%a7%8b%e7%9a%84ubuntu%e4%bd%bf%e7%94%a8" target="_blank" title="分享到 Telegram"><i class="fab fa-telegram" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/%E5%9B%9B%E6%9C%88%E9%82%A3%E7%8C%AB/" class="prev" rel="prev" title="四月那猫"><i class="fas fa-angle-left" aria-hidden="true"></i>四月那猫</a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright" aria-hidden="true"></i><span itemprop="copyrightYear">2026</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">erocolor</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up" aria-hidden="true"></i>
+            </a>
+        </div>
+
+        <div id="fixed-buttons-hidden"><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment" aria-hidden="true"></i>
+            </a>
+        </div><script src="/lib/lazysizes/lazysizes.min.js"></script><script src="/lib/clipboard/clipboard.min.js"></script><script src="/lib/sharer/sharer.min.js"></script><script>window.config={"comment":{}};</script><script src="/js/theme.js"></script></body>
+</html>

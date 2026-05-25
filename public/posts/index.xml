@@ -1,9 +1,53 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
-        <title>所有文章 - 我的全新 Hugo 网站</title>
+        <title>所有文章 - something wrong</title>
         <link>http://localhost:1313/posts/</link>
-        <description>所有文章 | 我的全新 Hugo 网站</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Sat, 09 May 2026 00:47:24 &#43;0800</lastBuildDate><atom:link href="http://localhost:1313/posts/" rel="self" type="application/rss+xml" /><item>
+        <description>所有文章 | something wrong</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Mon, 25 May 2026 21:20:52 &#43;0800</lastBuildDate><atom:link href="http://localhost:1313/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>从零开始的ubuntu使用</title>
+    <link>http://localhost:1313/posts/docker-compose.yml/</link>
+    <pubDate>Mon, 25 May 2026 21:20:52 &#43;0800</pubDate>
+    <author>erocolor</author>
+    <guid>http://localhost:1313/posts/docker-compose.yml/</guid>
+    <description><![CDATA[<p>使用电视盒子装的armbian系统故障频发，实在懒得折腾，于是把之前替换下来的主机装上了ubuntu做服务器用，内存从4G跃进到16G,感觉真是幸福。
+至于电费，算下来盒子的费用还有折腾的时间，原本还是赚的，现在也算是亡羊补牢吧。
+现在硬件太贵，等到价位回落再考虑买个迷你主机。</p>]]></description>
+</item>
+<item>
+    <title>四月那猫</title>
+    <link>http://localhost:1313/posts/%E5%9B%9B%E6%9C%88%E9%82%A3%E7%8C%AB/</link>
+    <pubDate>Sat, 23 May 2026 16:34:44 &#43;0800</pubDate>
+    <author>erocolor</author>
+    <guid>http://localhost:1313/posts/%E5%9B%9B%E6%9C%88%E9%82%A3%E7%8C%AB/</guid>
+    <description><![CDATA[<p>四月的时候，我爱上了一只猫。<br>
+那是一个温煦的午后，我背着舍友的夹层背包，想着去找间自习室打发时间。<br>
+在我经过湖边的时候，便看到了这个漂亮的小姐。牠迈着轻佻脚步，享受着惬意春风和温暖阳光。多么从容不迫呵，我想牠一定是毛茸茸的贵族。<br>
+牠毫不在意我满是倾慕的炽热目光，依旧旁若无人地在午后阳光笼罩下伸展着自己的优美胴体。一脸慵懒地舒展软绵宽松的毛皮，然后用娇小的前爪抚弄睡意迷蒙的双眼。<br>
+一举一动都牵扯我心为之倾动。<br>
+春风吹皱湖水那一刻，我全身全意爱上了她。<br>
+但我不知该如何向牠表述我心爱意，也无从知晓对于一身落魄的我牠持有何种看法。<br>
+唯一可以做到的，便是现在这般，在醒觉的午后，经过这位贵族少女的领地时，站在湖边远远一侧的石椅旁静静望着。这时即便是风雨之中，对我而言也是不可抑止的幸福。<br>
+于是我想着怎么更进一步。这样的我开始讨厌起自己的躯体；讨厌自己与那贵族少女不相匹配的身世；讨厌自己明明一事无成却又总是俯视牠的视角；讨厌束缚住自己不能与牠碰触的一切。<br>
+在造物这个巨大的鸿沟面前，我和牠之间恐怕要止步于此了。<br>
+我想我冒然上前会惊扰牠的宁静生活。我怕我无法理解牠的喜好愉快。我恨我哪一天突然消失离去会让牠伤心落泪。<br>
+所以我只好把自己想象成一个漂泊的旅行者，看望一个未曾相识的恋人。<br>
+我有我必须要做的事情。<br>
+牠也有牠要度过的时光。<br>
+唯有在这阳光和煦的四月午后，我和牠的世界短暂地交错在一起。<br>
+然后我不得不离开，带着弱者所独有的迫于生活的无奈和无法言传的唐突爱意。<br>
+幸好对于牠来说，我只是那些经过牠身旁万千路人中的一枚。是不许出声的观望者。<br>
+这种无须在意毫无轻重的可悲角色。<br>
+四月的一天，我突然感觉我与她的距离，并不比一只猫近多少。</p>]]></description>
+</item>
+<item>
+    <title>人生太晚</title>
+    <link>http://localhost:1313/posts/life_too_late/</link>
+    <pubDate>Sat, 23 May 2026 16:13:18 &#43;0800</pubDate>
+    <author>erocolor</author>
+    <guid>http://localhost:1313/posts/life_too_late/</guid>
+    <description><![CDATA[<p>总是感觉想要做的事情已经迟了一步，就算这样也打算开始出发。</p>]]></description>
+</item>
+<item>
     <title>使用hugo从零开始构建博客并部署到github_page</title>
     <link>http://localhost:1313/posts/%E4%BD%BF%E7%94%A8hugo%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E6%9E%84%E5%BB%BA%E5%8D%9A%E5%AE%A2%E5%B9%B6%E9%83%A8%E7%BD%B2%E5%88%B0github_page/</link>
     <pubDate>Sat, 09 May 2026 00:47:24 &#43;0800</pubDate>

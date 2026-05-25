@@ -1,4 +1,107 @@
-<details class="code-block-foldable">
-  <summary>点击展开/折叠代码</summary>
-  <pre><code>{{ .Inner | safeHTML }}</code></pre>
-</details>
+{{- $maxLines := 20 -}}
+{{- $lines := split .Inner "\n" -}}
+{{- $lineCount := len $lines -}}
+{{- $lang := .Attributes.lang | default "text" -}}
+
+<div class="custom-code-block">
+  <div class="custom-code-header">
+    <span class="custom-code-lang">{{ $lang }}</span>
+    <div class="custom-code-buttons">
+      {{- if gt $lineCount $maxLines -}}
+      <button class="custom-code-fold" type="button">▼ 折叠</button>
+      {{- end -}}
+      <button class="custom-code-copy" type="button">复制</button>
+    </div>
+  </div>
+  <div class="custom-code-body" {{- if gt $lineCount $maxLines }} data-foldable="true"{{- end -}}>
+    {{- highlight .Inner $lang "" -}}
+  </div>
+</div>
+
+<style>
+.custom-code-block {
+  margin: 1.2em 0;
+  border-radius: 6px;
+  border: 1px solid #e1e4e8;
+  overflow: hidden;
+  background: #f6f8fa;
+}
+.custom-code-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 12px;
+  background: #f0f0f0;
+  border-bottom: 1px solid #e1e4e8;
+  font-size: 0.85em;
+}
+.custom-code-lang {
+  color: #666;
+  text-transform: lowercase;
+}
+.custom-code-buttons {
+  display: flex;
+  gap: 10px;
+}
+.custom-code-buttons button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #0366d6;
+  font-size: 0.85em;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+.custom-code-buttons button:hover {
+  background: #e0e0e0;
+}
+.custom-code-body[data-foldable="true"] {
+  max-height: 300px;
+  overflow-y: hidden;
+}
+.custom-code-body[data-foldable="true"].expanded {
+  max-height: none;
+  overflow-y: visible;
+}
+.custom-code-body .highlight {
+  margin: 0;
+}
+</style>
+
+<script>
+(function() {
+  // 初始化所有代码块
+  const blocks = document.querySelectorAll('.custom-code-block');
+  blocks.forEach(block => {
+    const body = block.querySelector('.custom-code-body');
+    const foldBtn = block.querySelector('.custom-code-fold');
+    const copyBtn = block.querySelector('.custom-code-copy');
+    
+    // 折叠功能
+    if (foldBtn && body) {
+      foldBtn.addEventListener('click', () => {
+        const isExpanded = body.classList.contains('expanded');
+        if (isExpanded) {
+          body.classList.remove('expanded');
+          foldBtn.innerHTML = '▼ 展开';
+        } else {
+          body.classList.add('expanded');
+          foldBtn.innerHTML = '▲ 折叠';
+        }
+      });
+    }
+    
+    // 复制功能
+    if (copyBtn) {
+      copyBtn.addEventListener('click', () => {
+        const code = block.querySelector('code').innerText;
+        navigator.clipboard.writeText(code).then(() => {
+          const original = copyBtn.innerHTML;
+          copyBtn.innerHTML = '✓ 已复制';
+          setTimeout(() => { copyBtn.innerHTML = original; }, 1500);
+        });
+      });
+    }
+  });
+})();
+</script>
