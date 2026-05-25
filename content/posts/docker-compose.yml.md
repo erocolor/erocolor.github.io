@@ -1,7 +1,7 @@
 +++
 date = '2026-05-25T21:20:52+08:00'
 draft = false
-title = 'Docker Compose.yml'
+title = '从零开始的ubuntu使用'
 +++
 
 
@@ -10,11 +10,64 @@ title = 'Docker Compose.yml'
 至于电费，算下来盒子的费用还有折腾的时间，原本还是赚的，现在也算是亡羊补牢吧。
 现在硬件太贵，等到价位回落再考虑买个迷你主机。
 
+记录一下安装系统之后的各种设置操作，以供后来参考
+
+# 从零开始人ubuntu使用
+
+1,切换fcitx五笔输入法
+打开网络卷/16，下载码表文件和输入法主题。
+在下载目录打开终端。
+复制码表
+sudo cp -r /home/color/下载/wbx.main.dict /usr/share/libime/
+复制到主题到目录/home/color/.local/share/fcitx5/table/
+修改fcitx配置，五笔字型设置，排序规则：频率-->否。
+2,登陆deepseek,开启辅助。
+3,设置临时系统网络代理。
+下载安装 clash-verge-rev
+https://github.com/Clash-Verge-rev/clash-verge-rev
+4,更新系统
+```sudo apt update && sudo apt upgrade -y```
+5,安装多媒体解码器和常用字体
+```sudo apt install ubuntu-restricted-extras -y```
+6,启用防火墙
+```sudo ufw enable```
+7,安装优化工具
+```
+sudo apt install gnome-tweaks -y
+```
+8,挂载nas-nfs盘
+# 1. 安装 NFS 客户端
+```
+sudo apt install nfs-common -y
+```
+# 2. 创建挂载点
+```
+sudo mkdir -p /mnt/nas/16
+```
+# 3. 挂载 NFS 共享
+```
+sudo mount -t nfs -o nfsvers=3,rw 192.168.1.177:/volume2/16 /mnt/nas/16
+```
+# 4. 设置开机自动挂载
+```
+echo "192.168.1.177:/volume2/16 /mnt/nas/16 nfs nfsvers=3,rw,_netdev,x-systemd.automount 0 0" | sudo tee -a /etc/fstab
+echo "192.168.1.177:/volume3/10 /mnt/nas/10 nfs nfsvers=3,rw,_netdev,x-systemd.automount 0 0" | sudo tee -a /etc/fstab
+```
+# 5. 在容器中使用系统路径
+docker run -v /mnt/nas/16:/data ...
+
+# 6. 放行端口
+```sudo ufw allow 7892```
+查看当前防火墙放行
+```sudo ufw status numbered```
 
 
 /mnt/nas/10
 /mnt/nas/16
 是NAS里的两块硬盘，之后打算抛弃NAS直接装在服务器上。
+
+
+docker-compose.yml备份
 
 ```
 services:
