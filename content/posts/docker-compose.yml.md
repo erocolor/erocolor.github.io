@@ -6,7 +6,7 @@ title = '从零开始的ubuntu使用'
 
 
 
-使用电视盒子装的armbian系统故障频发，实在懒得折腾，于是把之前的那台主机装上了ubuntu做服务器用，内存从4G跃进到16G,感觉真是幸福。
+使用电视盒子装的armbian系统故障频发，实在懒得折腾，于是把之前替换下来的主机装上了ubuntu做服务器用，内存从4G跃进到16G,感觉真是幸福。
 至于电费，算下来盒子的费用还有折腾的时间，原本还是赚的，现在也算是亡羊补牢吧。
 现在硬件太贵，等到价位回落再考虑买个迷你主机。
 
@@ -26,11 +26,17 @@ sudo cp -r /home/color/下载/wbx.main.dict /usr/share/libime/
 下载安装 clash-verge-rev
 https://github.com/Clash-Verge-rev/clash-verge-rev
 4,更新系统
-```sudo apt update && sudo apt upgrade -y```
+```
+sudo apt update && sudo apt upgrade -y
+```
 5,安装多媒体解码器和常用字体
-```sudo apt install ubuntu-restricted-extras -y```
+```
+sudo apt install ubuntu-restricted-extras -y
+```
 6,启用防火墙
-```sudo ufw enable```
+```
+sudo ufw enable
+```
 7,安装优化工具
 ```
 sudo apt install gnome-tweaks -y
@@ -252,4 +258,14 @@ services:
     restart: always
     ports:
       - '3980:80'
+```
+
+ubuntu的远程桌面默认必须有显示器，并且锁屏下无法连接。
+安装扩展管理器可以在解锁。
+```
+sudo apt install gnome-shell-extension-manager -y
+```
+解锁
+```
+sudo loginctl unlock-sessions
 ```
