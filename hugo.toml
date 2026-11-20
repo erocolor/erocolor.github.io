@@ -85,6 +85,22 @@ hasCJKLanguage = true
     url = "/categories/"
 
     title = ""
+    
+      [[menu.main]]
+
+    weight = 4
+
+    identifier = "cos"
+
+    pre = ""
+
+    post = ""
+
+    name = "角色扮演"
+
+    url = "/cos/"
+
+    title = ""
 
 
 
